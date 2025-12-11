@@ -34,7 +34,7 @@ class WikipediaScraper:
 		return [title, body]
 
 	def save_page(self, page_repo, url, title, body):
-		page_repo.add_page(url=url, title=title, content=body)
+		return page_repo.add_page(url=url, title=title, content=body)
 		
 
 	def crawl(self, url_file, db):
@@ -42,21 +42,30 @@ class WikipediaScraper:
 		with open(url_file) as file:
 			page_repo = PageRepository(db)
 			page_repo.delete_all_pages()
+			error_count = 0
+			success_count = 0
 			for url in file:
 				url = url[:-1]
 				# run fetch_page on each url
 				page_content = self.fetch_page(url)
 
 				if page_content == -1:
-					print("Download error: " + url)
+					print("Download error (invalid url): " + url)
+					error_count += 1
 					continue
 				
 				# run parse_page on each
 				[title, body] = self.parse_page(page_content)
 				
 				# run save_page on each after
-				self.save_page(page_repo, url, title, body)
-				print("Saved page " + title)
+				if self.save_page(page_repo, url, title, body) != -1:
+					success_count += 1
+				else:
+					error_count += 1
+			
+			print("Finished fetching and saving pages")
+			print(f"Succesfully processed {success_count} pages")
+			print(f"Failed {error_count} page")
 
 
 

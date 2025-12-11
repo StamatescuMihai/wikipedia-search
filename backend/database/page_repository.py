@@ -5,9 +5,16 @@ class PageRepository:
 		self.db = db
 	
 	def add_page(self, url, title, content):
-		page = Page(url=url, title=title, content=content)
-		self.db.add(page)
-		self.db.commit()
+		page = self.db.query(Page).filter(Page.url == url).first()
+
+		if not page:
+			page = Page(url=url, title=title, content=content)
+			self.db.add(page)
+			self.db.commit()
+		else:
+			print("Save error (duplicate url): " + url)
+			return -1
+
 	
 	def get_page(self, page_id):
 		return self.db.query(Page).filter(Page.id == page_id).first()

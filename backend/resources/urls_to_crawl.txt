@@ -87,7 +87,7 @@ https://en.wikipedia.org/wiki/Python_(programming_language)
 https://en.wikipedia.org/wiki/JavaScript
 https://en.wikipedia.org/wiki/Go_(programming_language)
 https://en.wikipedia.org/wiki/Rust_(programming_language)
-https://en.wikipedia.org/wiki/SQL
+https://en.wikipedia.org/wiki/Haskell
 https://en.wikipedia.org/wiki/HTML
 https://en.wikipedia.org/wiki/CSS
 https://en.wikipedia.org/wiki/Assembly_language
@@ -264,7 +264,7 @@ https://en.wikipedia.org/wiki/Replication_(computing)
 https://en.wikipedia.org/wiki/Indexing_(database)
 https://en.wikipedia.org/wiki/Database_transaction
 https://en.wikipedia.org/wiki/Locking_(computer_science)
-https://en.wikipedia.org/wiki/Deadlock
+https://en.wikipedia.org/wiki/Banker's_algorithm
 https://en.wikipedia.org/wiki/Query_optimization
 https://en.wikipedia.org/wiki/Stored_procedure
 https://en.wikipedia.org/wiki/Triggers_(database)
