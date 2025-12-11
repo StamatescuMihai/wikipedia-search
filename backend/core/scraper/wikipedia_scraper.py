@@ -1,6 +1,7 @@
 import requests
 import re
 from bs4 import BeautifulSoup
+from ...database import get_db, init_db, PageRepository
 
 class WikipediaScraper:
 	def __init__(self):
@@ -32,12 +33,15 @@ class WikipediaScraper:
 			
 		return [title, body]
 
-	def save_page(self):
-		pass
+	def save_page(self, page_repo, url, title, body):
+		page_repo.add_page(url=url, title=title, content=body)
+		
 
-	def crawl(self):
+	def crawl(self, url_file, db):
 		# load each page from ../resources/urls_to_crawl.txt
-		with open("backend/resources/urls_to_crawl.txt") as file:
+		with open(url_file) as file:
+			page_repo = PageRepository(db)
+			page_repo.delete_all_pages()
 			for url in file:
 				url = url[:-1]
 				# run fetch_page on each url
@@ -49,21 +53,19 @@ class WikipediaScraper:
 				
 				# run parse_page on each
 				[title, body] = self.parse_page(page_content)
-
-				# run save_page on each after
-				# TODO, after database implementation
-				print(title)
-				print(body)
-
-				break
 				
-
+				# run save_page on each after
+				self.save_page(page_repo, url, title, body)
+				print("Saved page " + title)
 
 
 
 def main():
 	wikipediaScraper = WikipediaScraper()
-	wikipediaScraper.crawl()
+	init_db()
+	with get_db() as db:
+		wikipediaScraper.crawl("backend/resources/urls_to_crawl.txt", db)
+	
 
 if __name__=="__main__":
     main()
