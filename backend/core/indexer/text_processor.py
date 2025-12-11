@@ -1,7 +1,7 @@
 import re
 from collections import Counter
 from typing import List, Dict
-
+from nltk.stem import PorterStemmer
 
 class TextProcessor:
     STOPWORDS = {
@@ -20,6 +20,7 @@ class TextProcessor:
 
     def __init__(self):
         self.stopwords = self.STOPWORDS
+        self.stemmer = PorterStemmer()
 
     def tokenize(self, text: str) -> List[str]:
         if not text:
@@ -39,7 +40,8 @@ class TextProcessor:
                 continue
             if len(token) <= 1:
                 continue
-            normalized.append(token)
+            stemmed = self.stemmer.stem(token)
+            normalized.append(stemmed)
         return normalized
 
     def build_frequencies(self, tokens: List[str]) -> Dict[str, int]:
