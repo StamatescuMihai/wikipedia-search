@@ -53,3 +53,9 @@ class IndexRepository:
 		).first()
 
 		return posting.frequency if posting else 0
+	
+	def delete_index(self):
+		self.db.query(Term).delete()
+		self.db.query(Posting).delete()
+		
+		self.db.commit()
