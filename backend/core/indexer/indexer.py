@@ -1,16 +1,17 @@
 from typing import Dict, List
 from sqlalchemy.orm import Session
 from .text_processor import TextProcessor
+from ...database import IndexRepository, PageRepository, get_db, init_db
 
 
 class Indexer:
 
-    def __init__(self, db: Session, index_repository):
+    def __init__(self, db, index_repository):
         self.db = db
         self.text_processor = TextProcessor()
         self.index_repository = index_repository
 
-    def build_index(self, pages: List[Dict]) -> bool:
+    def build_index(self, pages) -> bool:
         if not pages:
             return False
         
@@ -18,11 +19,11 @@ class Indexer:
             indexed_count = 0
             
             for page in pages:
-                page_id = page.get('id')
-                content = page.get('content', '')
-                title = page.get('title', 'Unknown')
+                page_id = page.id
+                content = page.content
+                title = page.title
                 
-                if not content or not page_id:
+                if not page_id:
                     continue
                 
                 tokens = self.text_processor.tokenize(content)
@@ -32,10 +33,8 @@ class Indexer:
                 if term_frequencies:
                     for term, frequency in term_frequencies.items():
                         try:
-                            term_obj = self.index_repository.add_term(term)
-                            
                             self.index_repository.add_posting(
-                                term_id=term_obj.id,
+                                term_str=term,
                                 page_id=page_id,
                                 frequency=frequency
                             )
@@ -43,7 +42,7 @@ class Indexer:
                             print(f"Error indexing term '{term}': {str(e)}")
                     
                     indexed_count += 1
-                    print(f"Indexed: {title}")
+                    print(f"Indexed: {title} ({indexed_count}/{len(pages)})")
             
             return indexed_count > 0
             
@@ -63,4 +62,18 @@ class Indexer:
         except Exception as e:
             print(f"Error saving index: {str(e)}")
             return False
-    
+
+
+def main():
+    init_db()
+    with get_db() as db:
+        indexer_repo = IndexRepository(db)
+        indexer_repo.delete_index()
+        page_repo = PageRepository(db)
+        indexer = Indexer(db, index_repository=indexer_repo)
+        pages = page_repo.get_all_pages()
+        indexer.build_index(pages)
+
+
+if __name__=="__main__":
+    main()
