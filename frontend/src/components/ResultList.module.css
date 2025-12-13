@@ -1,0 +1,60 @@
+.resultList {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.resultCount {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  padding-left: 0.25rem;
+}
+
+.resultItem {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.resultItem:last-child {
+  border-bottom: none;
+}
+
+.resultTitle {
+  margin: 0 0 0.25rem 0;
+}
+
+.resultTitle a {
+  color: #1a0dab;
+  text-decoration: none;
+  font-size: 1.25rem;
+  font-weight: 400;
+}
+
+.resultTitle a:hover {
+  text-decoration: underline;
+}
+
+.resultTitle a:visited {
+  color: #681da8;
+}
+
+.resultUrl {
+  color: #006621;
+  font-size: 0.875rem;
+}
+
+.loading {
+  text-align: center;
+  padding: 3rem;
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.noResults {
+  text-align: center;
+  padding: 3rem;
+  color: #666;
+  font-size: 1rem;
+}
