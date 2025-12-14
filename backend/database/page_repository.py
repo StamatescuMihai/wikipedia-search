@@ -12,7 +12,6 @@ class PageRepository:
 			self.db.add(page)
 			self.db.commit()
 		else:
-			print("Save error (duplicate url): " + url)
 			return -1
 
 	

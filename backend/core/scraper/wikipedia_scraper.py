@@ -45,7 +45,7 @@ class WikipediaScraper:
 			error_count = 0
 			success_count = 0
 			for url in file:
-				url = url[:-1]
+				url = url.strip()
 				# run fetch_page on each url
 				page_content = self.fetch_page(url)
 
@@ -60,10 +60,12 @@ class WikipediaScraper:
 				# run save_page on each after
 				if self.save_page(page_repo, url, title, body) != -1:
 					success_count += 1
+					print(f"Successfully downloaded: {title}")
 				else:
+					print("Save error (duplicate url): " + url)
 					error_count += 1
 			
-			print("Finished fetching and saving pages")
+			print("\nFinished fetching and saving pages")
 			print(f"Succesfully processed {success_count} pages")
 			print(f"Failed {error_count} page")
 
