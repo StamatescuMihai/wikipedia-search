@@ -52,7 +52,7 @@ export default function Home() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <h1 className={styles.title}>Wikipedia Search Engine</h1>
+        <h1 className={styles.title}>Wikipedia Search</h1>
         <SearchBar onSearch={handleSearch} isLoading={isLoading} />
         {error && <div className={styles.error}>{error}</div>}
         <ResultList results={results} isLoading={isLoading} query={query} />

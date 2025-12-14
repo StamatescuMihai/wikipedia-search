@@ -40,7 +40,7 @@ The application allows users to search within a local set of Wikipedia articles,
 
 3. Running components:
 
-	Note: Before the search API and frontend can be used, the scraper and then the indexer must first run to populate the database. Since these operations can take a long time, we have included a pre-populated database file at the following [link](https://drive.google.com/file/d/1h14In50bFlJdYrrrzlqzRK4OYNfRQyRK/view?usp=sharing), which you can swap out at `wikipedia-search/backend/resources/database.db` to skip these steps.
+	Note: Before the search API and frontend can be used, the scraper and then the indexer must first run to populate the database. Since these operations can take a long time, we have included a pre-populated database file at the following [link](https://drive.google.com/file/d/1p7MU9ELTOQsW_HWF_3uGoq1Tx_HuS13e/view?usp=sharing), which you can swap out at `wikipedia-search/backend/resources/database.db` to skip these steps.
 
    - **Scraper and Indexer**:
 	 ```console

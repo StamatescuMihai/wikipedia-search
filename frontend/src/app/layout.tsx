@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Wikipedia Search Engine",
+  title: "Wikipedia Search",
   description: "Search through Wikipedia articles using our custom search engine",
 };
 
